@@ -1,0 +1,11 @@
+<div class="select-action">
+  <dynamic-form
+    [config]="config"
+    #form="dynamicForm"
+    (submit)="submit($event)">
+  </dynamic-form>
+</div>
+
+<div class="select-action-load">
+  <app-menu-item-action-container *ngIf="selectedOption"></app-menu-item-action-container>
+</div>
