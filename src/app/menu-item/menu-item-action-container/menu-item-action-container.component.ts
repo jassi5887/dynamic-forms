@@ -34,7 +34,7 @@ export class MenuItemActionContainerComponent implements OnInit, AfterViewInit {
       {
         "id": "2",
         "selectAction": false,
-        "willHaveSearchString": true,
+        "willHaveSearchString": false,
         "type": "select",
         "label": "field 2",
         "name": "field2",
@@ -78,7 +78,7 @@ export class MenuItemActionContainerComponent implements OnInit, AfterViewInit {
       console.log("getFormUrl", getFormUrl);
 
       if (!getFormUrl) this.router.navigate(['home']);
-      
+
       this.config = []; // this is so that on each action selected there is a new search form
       this.searchFormFields.forEach((field) => {
         let fieldConfig: FieldConfig;
@@ -88,6 +88,7 @@ export class MenuItemActionContainerComponent implements OnInit, AfterViewInit {
             name: field.name,
             type: field.type,
             label: field.label,
+            willHaveSearchString: field.willHaveSearchString,
             options: [...field.options].map((f) => ({ optionName: f.name }))
           }
 
@@ -100,10 +101,9 @@ export class MenuItemActionContainerComponent implements OnInit, AfterViewInit {
         }
 
         this.config.push(fieldConfig);
-        
+       
       });
     });
-   // console.log("MenuItemActionContainerComponent", this.config, this.searchFormConfig);
   }
 
   ngAfterViewInit() {

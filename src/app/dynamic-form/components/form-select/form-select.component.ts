@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 import { Field } from '../../models/field.interface';
 import { FieldConfig } from '../../models/field-config.interface';
@@ -19,17 +19,24 @@ import { DynamicFormService } from '../../services/dynamic-form.service';
           {{ option.optionName }}
         </option>
       </select>
+      <input *ngIf="config.willHaveSearchString" [formControlName]="config.name + '-searchInput'" />
     </div>
   `
 })
-export class FormSelectComponent implements Field {
+export class FormSelectComponent implements Field, OnInit {
   config: FieldConfig;
   group: FormGroup;
 
   constructor(private dynamicFormService: DynamicFormService) {}
 
+  ngOnInit() {
+    if( this.config.willHaveSearchString ) {
+      this.group.addControl(this.config.name + "-searchInput", new FormControl(this.config.name + "-searchInput"));
+    }
+  }
+
   onSelectChange(event) {
-    console.log("config", this.config);
+    console.log("FormSelectComponent, config", this.config);
 
     if( this.config && this.config.selectAction ) {
       console.log("1", this.group.controls[this.config.name].value);

@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { FieldConfig } from '../../models/field-config.interface';
-import { DynamicFormService } from '../../services/dynamic-form.service';
 
 
 @Component({
@@ -49,15 +48,10 @@ export class DynamicFormComponent implements OnChanges, OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private route: ActivatedRoute,
-              private dynamicFormService: DynamicFormService) {}
+              private route: ActivatedRoute,) {}
 
   ngOnInit() {
     this.form = this.createGroup();
-    // this.dynamicFormService.selectedSearchAction.subscribe((api) => {
-    //   this.handleSelectedAction(api);
-    // });
-    
   }
 
   /**
@@ -87,6 +81,7 @@ export class DynamicFormComponent implements OnChanges, OnInit {
 
     //this loops over controls in config object and creates & adds respective FormControl to the empty FormGroup
     this.controls.forEach(control => group.addControl(control.name, this.createControl(control)));
+    console.log("GROUP", group);
     return group;
   }
 
@@ -100,11 +95,6 @@ export class DynamicFormComponent implements OnChanges, OnInit {
     event.stopPropagation();
     this.submit.emit(this.value);
   }
-
-  // handleSelectedAction(selectedActionApi) {
-  //   console.log("selectedActionApi", selectedActionApi);
-  //   //this.router.navigate(['search'], { relativeTo: this.route });
-  // }
 
   setDisabled(name: string, disable: boolean) {
     if (this.form.controls[name]) {
