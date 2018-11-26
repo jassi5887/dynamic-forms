@@ -5,11 +5,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FieldConfig } from '../../models/field-config.interface';
 import { DynamicFormService } from '../../services/dynamic-form.service';
 
+
 @Component({
   exportAs: 'dynamicForm',
   selector: 'dynamic-form',
   styleUrls: ['dynamic-form.component.scss'],
   template: `
+    {{ count }}
     <form
       class="dynamic-form"
       [formGroup]="form"
@@ -55,6 +57,7 @@ export class DynamicFormComponent implements OnChanges, OnInit {
     // this.dynamicFormService.selectedSearchAction.subscribe((api) => {
     //   this.handleSelectedAction(api);
     // });
+    
   }
 
   /**

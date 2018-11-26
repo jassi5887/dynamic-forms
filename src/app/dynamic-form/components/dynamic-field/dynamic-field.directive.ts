@@ -46,6 +46,7 @@ export class DynamicFieldDirective implements Field, OnChanges, OnInit {
         Supported types: ${supportedTypes}`
       );
     }
+    this.container.clear();
     const component = this.resolver.resolveComponentFactory<Field>(components[this.config.type]);
     this.component = this.container.createComponent(component);
     this.component.instance.config = this.config;

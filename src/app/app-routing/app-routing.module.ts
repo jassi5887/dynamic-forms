@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'menu/:id',  component: MenuItemComponent, children: [
-    { path: 'search',  component: MenuItemActionContainerComponent }
+    { path: 'search/:selectOption',  component: MenuItemActionContainerComponent }
   ]}
 ];
 

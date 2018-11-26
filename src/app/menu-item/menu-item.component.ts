@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 import { FieldConfig } from '../dynamic-form/models/field-config.interface';
 import { DynamicFormComponent } from '../dynamic-form/containers/dynamic-form/dynamic-form.component';
 import { DynamicFormService } from '../dynamic-form/services/dynamic-form.service';
@@ -45,6 +45,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit {
   ];
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private dynamicFormService: DynamicFormService) { }
 
   ngOnInit() {
@@ -69,6 +70,8 @@ export class MenuItemComponent implements OnInit, AfterViewInit {
     this.dynamicFormService.selectedSearchAction.subscribe((actionOptionConfig: SelectActionOptionsConfig) => {
       console.log("actionApi", actionOptionConfig);
       this.selectedOption = actionOptionConfig;
+      this.dynamicFormService.setCurrentSelectedActionOption(this.selectedOption);
+      this.router.navigate(['search', actionOptionConfig.optionName], { relativeTo: this.route });
     });
   }
 
